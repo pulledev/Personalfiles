@@ -9,25 +9,35 @@ use App\Models\Units;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class AdminController extends Controller
 {
     public function admin()
     {
-        return view('admin');
+        $units = Units::all();
+        $ranks = Ranks::all();
+
+        return view('admin', ['units' => $units, 'ranks' => $ranks]);
     }
 
     public function adminPost(Request $request)
     {
         $formType = $request->input("form_type");
+
         if ($formType == "rank"){
             $validated = $request->validate([
                 "rankName" => "required",
                 "color" => "required"
             ]);
             $validated["createdFromUser"] = Auth::id();
-            dump($validated);
-            Ranks::create($validated);
+
+            if (Ranks::create($validated)){
+                Log::info('User {userId} created unit {name}', ['userId'=>Auth::id(), 'name' => $validated["rankName"]]);
+                return redirect(route("admin"))->with("msg", "Einheit wurde erstellt");
+            }
+            Log::notice('Failed to create rank {name} by {id}', ['userId' => Auth::user(), 'name' => $validated["rankName"]]);
+            return redirect(route("admin"))->with("msg","Erstellung der Unit fehlgeschlagen");
         }
 
         if ($formType == "unit"){
@@ -36,8 +46,50 @@ class AdminController extends Controller
                 "color" => "required"
             ]);
             $validated["createdFromUser"] = Auth::id();
+
+            if (Units::create($validated)){
+                Log::info('User {userId} created unit {name}', ['userId'=>Auth::user(), 'name' => $validated["unitName"]]);
+                return redirect(route("admin"))->with("msg", "Rang wurde erstellt");
+            }
+            Log::notice('Failed to create unit {name} by {id}', ['userId' => Auth::user(), 'name' => $validated["unitName"]]);
+            return redirect(route("admin"))->with("error","Erstellung der Unit fehlgeschlagen");
+
+        }
+
+        if ($formType == "entryType"){
+            $validated = $request->validate([
+                "entryTypeName" => "required",
+                "color" => "required"
+            ]);
+            $validated["createdFromUser"] = Auth::id();
+
+            if (Units::create($validated)){
+                Log::info('User {userId} created unit {name}', ['userId'=>Auth::user(), 'name' => $validated["unitName"]]);
+                return redirect(route("admin"))->with("msg", "Rang wurde erstellt");
+            }
+            Log::notice('Failed to create unit {name} by {id}', ['userId' => Auth::user(), 'name' => $validated["unitName"]]);
+            return redirect(route("admin"))->with("error","Erstellung der Unit fehlgeschlagen");
+
+        }
+
+        if ($formType == "personal"){
+            $validated = $request->validate([
+                "name" => "required",
+                "rankId" => "required",
+                "unitId" => "required",
+                "isStab" => "boolean"
+            ]);
+
+            $validated["createdFromUser"] = Auth::id();
+            $validated["isStab"] = $request->has('isStab');
             dump($validated);
-            Units::create($validated);
+            if (Files::create($validated)){
+                Log::info('User {userId} created member {name}', ['userId'=>Auth::user(), 'name' => $validated["name"]]);
+                return redirect(route("admin"))->with("msg", "Mitglied wurde erstellt");
+            }
+            Log::notice('Failed to create Member {name} by {id}', ['userId' => Auth::user(), 'name' => $validated["name"]]);
+            return redirect(route("admin"))->with("error","Erstellung des Mitglied fehlgeschlagen");
+
         }
 
 

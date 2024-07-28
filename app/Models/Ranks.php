@@ -5,20 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-
-class Files extends Model
+class Ranks extends Model
 {
     use HasFactory;
-    protected string $name;
-    protected int $rankId;
-    protected int $unitId;
-    protected bool $isStab;
+    protected string $rankName;
+    protected string $color = "white";
+    //protected int $createdFromUser;
+
     protected $fillable = [
-        'name',
-        'rankId',
-        'unitId',
-        'isStab',
+        'rankName',
+        'color',
         'createdFromUser'
     ];
-
 }
+

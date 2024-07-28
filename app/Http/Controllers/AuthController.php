@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Units;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -42,9 +43,9 @@ class AuthController extends Controller
         $user->name = $request->user;
         $user->password = Hash::make($request->password);
         if ($user->save()){
-            return redirect(route("login"))->with("success", "User created successfully");
+            return redirect(route("login"))->with("success", "Benutzer wurde erstellt. Und kann nun freigeschaltet werden");
         }
-        return redirect(route("register"))->with("error", "Failed to create User");
+        return redirect(route("register"))->with("error", "Benutzer konnte nicht ersteller werden. Probiere es nochmal");
 
     }
 
