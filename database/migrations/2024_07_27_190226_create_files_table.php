@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('files', function (Blueprint $table) {
+        Schema::create('personal', function (Blueprint $table) {
             $table->id();
             $table->string("name");
             $table->integer("rankId");
@@ -20,17 +20,6 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('ranks', function (Blueprint $table) {
-            $table->id();
-            $table->string("rankName");
-            $table->timestamps();
-        });
-
-        Schema::create('units', function (Blueprint $table) {
-            $table->id();
-            $table->string("unitName");
-            $table->timestamps();
-        });
     }
 
     /**
@@ -38,8 +27,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('files');
-        Schema::dropIfExists('ranks');
-        Schema::dropIfExists('units');
+        Schema::dropIfExists('personal');
+
     }
 };

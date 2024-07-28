@@ -1,4 +1,4 @@
-@extends('layouts.base')
+home.blade.php@extends('layouts.base')
 @section('title', 'Gästebuch')
 
 @section('body')
