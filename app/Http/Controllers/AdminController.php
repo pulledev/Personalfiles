@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\EntryType;
 use App\Models\Files;
 use App\Models\Ranks;
 use App\Models\Units;
@@ -58,17 +59,17 @@ class AdminController extends Controller
 
         if ($formType == "entryType"){
             $validated = $request->validate([
-                "entryTypeName" => "required",
+                "entryName" => "required",
                 "color" => "required"
             ]);
             $validated["createdFromUser"] = Auth::id();
 
-            if (Units::create($validated)){
-                Log::info('User {userId} created unit {name}', ['userId'=>Auth::user(), 'name' => $validated["unitName"]]);
-                return redirect(route("admin"))->with("msg", "Rang wurde erstellt");
+            if (EntryType::create($validated)){
+                Log::info('User {userId} created entry type {name}', ['userId'=>Auth::user(), 'name' => $validated["entryName"]]);
+                return redirect(route("admin"))->with("msg", "Eintragtyp wurde erstellt");
             }
-            Log::notice('Failed to create unit {name} by {id}', ['userId' => Auth::user(), 'name' => $validated["unitName"]]);
-            return redirect(route("admin"))->with("error","Erstellung der Unit fehlgeschlagen");
+            Log::notice('Failed to create entry type {name} by {id}', ['userId' => Auth::user(), 'name' => $validated["entryName"]]);
+            return redirect(route("admin"))->with("error","Erstellung des Eintragtyps fehlgeschlagen");
 
         }
 

@@ -21,4 +21,13 @@ class Files extends Model
         'createdFromUser'
     ];
 
+    public function rank()
+    {
+        return $this->belongsTo(Ranks::class, 'rankId');
+    }
+
+    public function unit()
+    {
+        return $this->belongsTo(Units::class, 'unitId');
+    }
 }

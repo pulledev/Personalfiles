@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class EntryType extends Model
 {
     use HasFactory;
+    protected string $entryName;
+    protected string $color;
+    protected $fillable = [
+        'entryName',
+        'color'
+    ];
 }

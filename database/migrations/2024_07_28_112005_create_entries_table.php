@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('entries', function (Blueprint $table) {
             $table->id();
+            $table->string("headline");
+            $table->text("text");
+            $table->integer("fileId");
+            $table->integer("typeId");
             $table->timestamps();
         });
     }

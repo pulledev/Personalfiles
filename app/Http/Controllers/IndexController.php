@@ -15,7 +15,7 @@ class IndexController
                 'email' => ['required', 'max:255'],
                 'password' => ['required', 'max:255']
             ]);
-            dump($validated);
+            //dump($validated);
         }
         return view('home');
     }

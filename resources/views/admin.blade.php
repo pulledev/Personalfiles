@@ -59,7 +59,7 @@
                 <input type="hidden" name="form_type" value="entryType">
                 <div class="mb-3">
                     <label for="entry" class="form-label">Name des neuen Eintragtyps</label>
-                    <input type="text" class="form-control" name="entryTypeName" id="entry" aria-describedby="userHelp">
+                    <input type="text" class="form-control" name="entryName" id="entry" aria-describedby="userHelp">
                 </div>
                 <div class="mb-3">
                     <label for="user" class="form-label">Farbe</label>

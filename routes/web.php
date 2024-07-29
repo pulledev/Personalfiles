@@ -17,6 +17,7 @@ Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/register', [AuthController::class, 'registerPost'])->name('register.post');
 
 Route::get('/admin', [AdminController::class, 'admin'])->name('admin');
-
 Route::post('/admin', [AdminController::class, 'adminPost'])->name('admin.post');
 
+Route::get('/files', [\App\Http\Controllers\FilesController::class, 'files'])->name("files");
+Route::post('/files', [\App\Http\Controllers\FilesController::class, 'filesPost'])->name("files.post");
