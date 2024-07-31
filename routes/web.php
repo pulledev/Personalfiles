@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FilesController;
 
 Route::middleware("auth")->group(function (){
    Route::view("/","home")->name("home");
@@ -19,5 +20,8 @@ Route::post('/register', [AuthController::class, 'registerPost'])->name('registe
 Route::get('/admin', [AdminController::class, 'admin'])->name('admin');
 Route::post('/admin', [AdminController::class, 'adminPost'])->name('admin.post');
 
-Route::get('/files', [\App\Http\Controllers\FilesController::class, 'files'])->name("files");
-Route::post('/files', [\App\Http\Controllers\FilesController::class, 'filesPost'])->name("files.post");
+Route::get('/files', [FilesController::class, 'files'])->name("files");
+Route::post('/files', [FilesController::class, 'filesPost'])->name("files.post");
+
+Route::get('/files/{id}', [FilesController::class, 'detail'])->name('files.detail');
+Route::post('/files/{id}', [FilesController::class, 'detailPost'])->name('files.detail.post');

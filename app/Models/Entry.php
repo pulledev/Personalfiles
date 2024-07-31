@@ -17,6 +17,12 @@ class Entry extends Model
         'headline',
         'text',
         'fileId',
-        'typeId'
+        'typeId',
+        'createdFromUser'
     ];
+    public function entryType()
+    {
+        return $this->belongsTo(EntryType::class, 'typeId');
+    }
+
 }

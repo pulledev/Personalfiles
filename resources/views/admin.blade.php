@@ -69,6 +69,24 @@
             </form>
         @endcomponent
 
+        @component('components.modal', ['title'=>'Ausbildungstyp erstellen', 'button' => 'Ausbildungstyp erstellen', 'name' => 'educations'])
+            <form method="POST" action="{{route('admin.post')}}">
+                @csrf
+                <input type="hidden" name="form_type" value="educations">
+                <div class="mb-3">
+                    <label for="entry" class="form-label">Name der neuen Ausbildung</label>
+                    <input type="text" class="form-control" name="educationName" id="entry" aria-describedby="userHelp">
+                </div>
+
+                <div class="mb-3">
+                    <label for="Text" class="form-label">Kurze Inhaltsbeschreibung</label>
+                    <textarea class="form-control" placeholder="" id="floatingTextarea2" name="educationDescription" style="height: 100px">asdf</textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Erstellen</button>
+            </form>                    <input type="text" name="educationDescription">
+        @endcomponent
+
         @component('components.modal', ['title'=>'Einheit erstellen', 'button' => 'Mitglied erstellen', 'name' => 'member'])
             <form method="POST" action="{{route('admin.post')}}">
                 @csrf

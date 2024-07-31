@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\EducationType;
 use App\Models\EntryType;
 use App\Models\Files;
 use App\Models\Ranks;
@@ -92,6 +93,25 @@ class AdminController extends Controller
             return redirect(route("admin"))->with("error","Erstellung des Mitglied fehlgeschlagen");
 
         }
+
+        if ($formType == "educations"){
+            $validated = $request->validate([
+                'educationName' => 'required',
+                'educationDescription' => 'required'
+            ]);
+
+            $validated["createdFromUser"] = Auth::id();
+            $validated["level"] = 0;
+            dump($validated);
+            if (EducationType::create($validated)){
+                Log::info('User {userId} created education {name}', ['userId'=>Auth::user(), 'name' => $validated["educationName"]]);
+                return redirect(route("admin"))->with("msg", "Ausbildung wurde erstellt");
+            }
+            Log::notice('Failed to create Education {name} by {id}', ['userId' => Auth::user(), 'name' => $validated["educationName"]]);
+            return redirect(route("admin"))->with("error","Erstellung der Ausbildung fehlgeschlagen");
+
+        }
+
 
 
     }
