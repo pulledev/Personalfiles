@@ -1,1 +1,3 @@
-# Crusader goes Cyber <3
+# Crusader Admin Page
+
+learning Notion is good enough for our usecase :(
